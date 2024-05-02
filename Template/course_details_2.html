@@ -222,48 +222,8 @@
               <div class="col col-lg-8">
                 <div class="section_space_lg pb-lg-0">
                   <div class="pe-lg-5">
-                    <div class="course_info_card d-lg-none">
-                      <div class="details_image">
-                        <img src="assets/images/course/course_details_image_1.jpg" alt="Collab – Online Learning Platform">
-                      </div>
-                      <ul class="meta_info_list unordered_list">
-                        <li>
-                          <i class="fas fa-star"></i>
-                          <span>3.5 (3k reviews)</span>
-                        </li>
-                      </ul>
-                      <div class="item_price">
-                        <span class="sale_price">FREE</span>
-                      </div>
-                      <a href="pricing.html" class="btn btn_dark">
-                        <span>
-                          <small>Get Course</small>
-                          <small>Get Course</small>
-                        </span>
-                      </a>
-                      <ul class="course_info_list unordered_list_block">
-                        <li>
-                          <span><i class="fas fa-user"></i> Created</span>
-                          <strong>Wendy Chandler</strong>
-                        </li>
-                        <li>
-                          <span><i class="fas fa-chart-bar"></i> Level</span>
-                          <strong>Beginner</strong>
-                        </li>
-                        <li>
-                          <span><i class="fas fa-clock"></i> Duration</span>
-                          <strong>120 Hours</strong>
-                        </li>
-                        <li>
-                          <span><i class="fas fa-video"></i> Lessons</span>
-                          <strong>3 Video</strong>
-                        </li>
-                        <li>
-                          <span><i class="fas fa-users"></i> Webinar</span>
-                          <strong>4 Hours</strong>
-                        </li>
-                      </ul>
-                    </div>
+                    
+                    
 
                     <div class="section_heading">
                       <h2 class="heading_text">
@@ -687,50 +647,94 @@
                 </div>
               </div>
 
+             
+
               <div class="col col-lg-4">
-                <aside class="sidebar">
-                  <div class="course_info_card d-none d-lg-block">
-                    <div class="details_image">
-                      <img src="assets/images/course/course_details_image_1.jpg" alt="Collab – Online Learning Platform">
-                    </div>
-                    <ul class="meta_info_list unordered_list">
-                      <li>
-                        <i class="fas fa-star"></i>
-                        <span>3.5 (3k reviews)</span>
-                      </li>
-                    </ul>
-                    <div class="item_price">
-                      <span class="sale_price">FREE</span>
-                    </div>
-                    <a href="pricing.html" class="btn btn_dark">
-                      <span>
-                        <small>Get Course</small>
-                        <small>Get Course</small>
-                      </span>
-                    </a>
-                    <ul class="course_info_list unordered_list_block">
-                      <li>
-                        <span><i class="fas fa-user"></i> Created</span>
-                        <strong>Wendy Chandler</strong>
-                      </li>
-                      <li>
-                        <span><i class="fas fa-chart-bar"></i> Level</span>
-                        <strong>Beginner</strong>
-                      </li>
-                      <li>
-                        <span><i class="fas fa-clock"></i> Duration</span>
-                        <strong>120 Hours</strong>
-                      </li>
-                      <li>
-                        <span><i class="fas fa-video"></i> Lessons</span>
-                        <strong>3 Video</strong>
-                      </li>
-                      <li>
-                        <span><i class="fas fa-users"></i> Webinar</span>
-                        <strong>4 Hours</strong>
-                      </li>
-                    </ul>
-                  </div>
+                <aside class="sidebar ">
+
+                  <div id="certificateContainer" class="certificate_container "></div>
+                  <script>
+                      document.addEventListener('DOMContentLoaded', async () => {
+                          // Get the certificateId from the query parameter
+                          const urlParams = new URLSearchParams(window.location.search);
+                          const certificateId = urlParams.get('certificateId');
+                  
+                          try {
+                              const response = await fetch(`http://localhost:4000/certificate/certificate/${certificateId}`, {
+                                  method: 'GET',
+                                  headers: {
+                                      'Content-Type': 'application/json'
+                                  }
+                              });
+                  
+                              if (response.ok) {
+                                  const certificate = await response.json();
+                                  console.log('Certificate:', certificate);
+                  
+                                  // Create elements for each certificate
+                                  const courseCard = document.createElement('div');
+                                  courseCard.classList.add('course_info_card');
+                  
+                                  // Add HTML content dynamically using certificate data
+                                  courseCard.innerHTML = `
+                                      <div class="course_info_card ">
+                                          <div class="details_image ">
+                                              <img src="assets/images/course/course_details_image_1.jpg" alt="Collab – Online Learning Platform">
+                                          </div>
+                                          <ul class="meta_info_list unordered_list">
+                                              <li>
+                                                  <i class="fas fa-star"></i>
+                                                  <span>3.5 (3k reviews)</span>
+                                              </li>
+                                          </ul>
+                                          <a href="pricing.html" class="btn btn_dark">
+                                              <span>
+                                                  <small>Get Course</small>
+                                                  <small>Get Course</small>
+                                              </span>
+                                          </a>
+                                          <ul class="course_info_list unordered_list_block">
+                                              <li>
+                                                  <span><i class="fas fa-user"></i> Created</span>
+                                                  <strong>${certificate.name}</strong>
+                                              </li>
+                                              <li>
+                                                  <span><i class="fas fa-chart-bar"></i> Level</span>
+                                                  <strong>${certificate.category}</strong>
+                                              </li>
+                                              <li>
+                                                  <span><i class="fas fa-clock"></i> Duration</span>
+                                                  <strong>${certificate.subCategory}</strong>
+                                              </li>
+                                              <li>
+                                                  <span><i class="fas fa-video"></i> Lessons</span>
+                                                  <strong>${certificate.createdAt}</strong>
+                                              </li>
+                                              <li>
+                                                  <span><i class="fas fa-users"></i> Webinar</span>
+                                                  <strong>${certificate.updatedAt}</strong>
+                                              </li>
+                                          </ul>
+                                      </div>
+                                  
+                                  `;
+                  
+                                  // Append the course card to the container
+                                  const container = document.querySelector('#certificateContainer');
+                                  container.appendChild(courseCard);
+                              } else {
+                                  console.error('Error retrieving certificate:', response.statusText);
+                                  // Handle error response from the backend
+                              }
+                          } catch (error) {
+                              console.error('Error retrieving certificate:', error);
+                              // Handle network errors or exceptions
+                          }
+                      });
+                  </script>
+
+                  
+                
 
                   <div class="callbox_wrap">
                     <h3 class="widget_title">Get More Benefits with Our Plans</h3>
