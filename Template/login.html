@@ -316,7 +316,7 @@
                   document.cookie = `token=${data.token}; path=/`;
                   
                   // Redirect to the /index_2 page
-                  window.location.href = '/index_2';
+                  window.location.href = '/Template/index_2';
               } else {
                   const errorMessage = await response.text();
                   console.error(errorMessage);

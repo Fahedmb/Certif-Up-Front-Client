@@ -37,3 +37,4 @@ document.getElementById('registerForm').addEventListener('submit', async functio
         console.error(error);
     }
 });
+
